@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gardner"
+name = "gardener"
 version = "0.1.0"
 description = "A cli tool to manage your digital garden"
 authors = ["Bharat Kalluri <bharatkalluri@protonmail.com>"]
