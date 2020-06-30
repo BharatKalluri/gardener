@@ -5,7 +5,7 @@ import re
 def generate_notes_to_path_map(notes_dir: str) -> dict:
     """
     Generates a map which contains note names and relative ext stripped note path's
-    Used in generating reference text for notes
+    Used in generating reference text for notes, currently only supports markdown files
     :param notes_dir: str , it is the root file path for notes
     :return: dict of note name and relative github friendly path
     """

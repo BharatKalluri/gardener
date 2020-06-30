@@ -1,5 +1,5 @@
 import os
-from typing import Optional, List
+from typing import Optional
 
 from utils import find_wiki_links
 
@@ -22,12 +22,18 @@ def generate_reference_links(file_contents: str, map_note_to_path: dict) -> str:
 
 def get_file_contents_without_ref_block(file_contents: str) -> Optional[str]:
     header_line_no = None
+    footer_line_no = None
     lines_in_file = file_contents.split(os.linesep)
     for i in range(len(lines_in_file)):
         line_contents = lines_in_file[i]
         if HEADER in line_contents:
             header_line_no = i
-    final_file_contents = os.linesep.join(lines_in_file[:header_line_no])
+        if FOOTER in line_contents:
+            footer_line_no = i
+
+    contents_till_header = lines_in_file[:header_line_no]
+    contents_after_footer = lines_in_file[(footer_line_no + 1):]
+    final_file_contents = os.linesep.join(contents_till_header + contents_after_footer)
     return final_file_contents
 
 
