@@ -15,7 +15,7 @@ def generate_notes_to_path_map(notes_dir: str) -> dict:
             file_name, file_ext = os.path.splitext(file)
             if file_ext == ".md":
                 complete_path = os.path.join(root, file)
-                relative_path = complete_path.replace(notes_dir + os.sep, "")
+                relative_path = complete_path.replace(notes_dir, "")
                 relative_path_without_ext = relative_path.replace(".md", "")
                 _notes_to_path_map[file_name] = relative_path_without_ext
 

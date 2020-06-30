@@ -33,4 +33,4 @@ Gardner is a cli tool meant to organize your digital garden.
 - `gardner clean`: (still in discussion) will clean the references block and back links block. If those look like clutter
     in your note taking experience, this should help.
     
-Please do let me know if you have any other interesting ideas over at github issues! 
+Please do let me know if you have any other interesting ideas over at github issues!
