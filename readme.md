@@ -3,6 +3,7 @@
 > Note: This is still an alpha product
 
 Gardener is a command line tool meant to organize your digital garden.
+The aim of this tool is to make managing a digital garden editor/tool independent.
 
 Features:
 - Back link's and wiki links support
