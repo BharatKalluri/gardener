@@ -1,6 +1,6 @@
 import os
 from dataclasses import dataclass
-from typing import Set, Dict, Optional
+from typing import Set, Dict, Optional, List
 
 from utils import find_wiki_links
 
@@ -85,6 +85,25 @@ class NoteRepo:
         final_file_contents = os.linesep.join(contents_till_header + contents_after_footer)
         return final_file_contents
 
+    @staticmethod
+    def _get_back_link_md_line(back_link_metadata: NoteMetadata) -> Optional[str]:
+        if back_link_metadata:
+            if back_link_metadata.note_name.lower() == 'readme' and GITHUB_PAGES:
+                back_link_metadata.relative_path_without_ext = \
+                    back_link_metadata.relative_path_without_ext.replace("readme", "")
+            return f"- [{back_link_metadata.note_name}]({back_link_metadata.relative_path_without_ext})"
+
+    def _get_back_link_lines(self, note_metadata: NoteMetadata) -> List[str]:
+        back_links = note_metadata.back_links
+        back_link_md_lines = [
+            NoteRepo._get_back_link_md_line(self.note_to_metadata_map.get(back_link)) for back_link in back_links
+        ]
+        return list(filter(None, back_link_md_lines))
+
+    @staticmethod
+    def _get_wiki_link_md_line(note_metadata: NoteMetadata) -> Optional[str]:
+        return f'[{note_metadata.note_name}]: {note_metadata.relative_path_without_ext} "{note_metadata.note_name}"'
+
     def generate_reference_block(self, note_name: str) -> str:
         note_metadata: NoteMetadata = self.note_to_metadata_map.get(note_name)
         if not note_metadata:
@@ -95,27 +114,18 @@ class NoteRepo:
         back_links = note_metadata.back_links
         wiki_links = note_metadata.wiki_links
 
-        # Populating back links
         if back_links:
-            reference_block_lines.append(os.linesep)
-            reference_block_lines.append("#### Back links")
-            for back_link in back_links:
-                back_link_metadata = self.note_to_metadata_map.get(back_link)
-                if back_link_metadata:
-                    if back_link_metadata.note_name.lower() == 'readme' and GITHUB_PAGES:
-                        back_link_metadata.relative_path_without_ext = back_link_metadata.relative_path_without_ext.replace(
-                            "readme", "")
-                    reference_block_lines.append(
-                        f"- [{back_link_metadata.note_name}]({back_link_metadata.relative_path_without_ext})")
-            reference_block_lines.append(os.linesep)
+            reference_block_lines.extend([
+                os.linesep,
+                "#### Back links",
+                *self._get_back_link_md_line(note_metadata),
+                os.linesep
+            ])
 
-        # Populating wiki links
-        for link in wiki_links:
-            linked_note_metadata: Optional[NoteMetadata] = self.note_to_metadata_map.get(link)
-            if linked_note_metadata:
-                reference_block_lines.append(
-                    f'[{linked_note_metadata.note_name}]: {linked_note_metadata.relative_path_without_ext}'
-                    f' "{linked_note_metadata.note_name}"')
+        reference_block_lines.extend([
+            self._get_wiki_link_md_line(self.note_to_metadata_map.get(link))
+            for link in wiki_links
+        ])
 
         reference_block_lines.append(FOOTER)
         return os.linesep.join(reference_block_lines)
