@@ -91,7 +91,7 @@ class NoteRepo:
             if back_link_metadata.note_name.lower() == 'readme' and GITHUB_PAGES:
                 back_link_metadata.relative_path_without_ext = \
                     back_link_metadata.relative_path_without_ext.replace("readme", "")
-            return f"- [{back_link_metadata.note_name}]({back_link_metadata.relative_path_without_ext})"
+            return f"- [[{back_link_metadata.note_name}]]({back_link_metadata.relative_path_without_ext})"
 
     def _get_back_link_lines(self, note_metadata: NoteMetadata) -> List[str]:
         back_links = note_metadata.back_links
@@ -118,7 +118,7 @@ class NoteRepo:
             reference_block_lines.extend([
                 os.linesep,
                 "#### Back links",
-                *self._get_back_link_md_line(note_metadata),
+                *self._get_back_link_lines(note_metadata),
                 os.linesep
             ])
 
