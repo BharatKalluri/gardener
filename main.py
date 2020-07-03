@@ -2,7 +2,7 @@ import os
 
 import click
 
-from note_metadata import NoteRepo
+from note_repo import NoteRepo
 
 
 @click.group()
