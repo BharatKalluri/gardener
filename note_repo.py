@@ -47,7 +47,9 @@ class NoteRepo:
                     relative_path = complete_path.replace(notes_dir, "")
                     relative_path_without_ext = relative_path.replace(".md", "")
                     with open(complete_path) as note:
-                        wiki_links = find_wiki_links(note.read())
+                        note_contents = note.read()
+                        note_contents_without_ref_block = NoteRepo.get_file_contents_without_reference_block(note_contents)
+                        wiki_links = find_wiki_links(note_contents_without_ref_block)
                         _notes_to_metadata_map[file_name] = NoteMetadata(
                             back_links=set(),
                             note_name=file_name,
