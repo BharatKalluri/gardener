@@ -13,7 +13,7 @@ def cli():
 @click.command()
 def link():
     notes_dir_path = os.getcwd()
-    notes_repo = NoteRepo.get_new_note_repo(notes_dir_path)
+    notes_repo = NoteRepo(notes_dir_path)
     notes_repo.process_notes()
 
 
