@@ -127,7 +127,6 @@ class NoteRepo:
 
         renamed_complete_path = note_metadata.complete_path.replace(src_name, dst_name)
         os.rename(note_complete_path, renamed_complete_path)
-        print(f"Rename from {src_name} -> {dst_name} is complete.")
 
     def process_notes(self):
         for note, metadata in self.note_to_metadata_map.items():
