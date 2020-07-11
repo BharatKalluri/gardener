@@ -30,7 +30,7 @@ The aim of this tool is to **get out of the way and make managing a digital gard
     These turn into actual links later on if you want to make your website public using github pages.
     > Pro tip: Setup a pre-commit hook so that all your will have up to date backlinks/wikilinks. I use [lefthook](https://github.com/Arkweid/lefthook/)
      personally, The config is [very simple!](https://github.com/BharatKalluri/notes/blob/master/lefthook.yml)
-- Push the updated files and switch on github pages if you please.
+- Push the updated files and switch on github pages if you please. You will have a great looking website ready for you! ([example](https://notes.bharatkalluri.in))
 
 ### Limitations
 - Although gardener handles nested files, it cannot handle file name conflicts.
