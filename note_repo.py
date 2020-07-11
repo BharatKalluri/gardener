@@ -11,7 +11,6 @@ class NoteRepo:
         self.notes_dir = notes_dir
         self.note_to_metadata_map = NoteRepo.generate_notes_to_metadata_map(notes_dir)
         if not self.note_to_metadata_map:
-            # TODO: Throw a custom exception
             raise Exception("No notes found in this directory!")
 
     @staticmethod
@@ -47,12 +46,14 @@ class NoteRepo:
         return _notes_to_metadata_map
 
     @staticmethod
-    def _get_back_link_md_line(back_link_metadata: NoteMetadata) -> Optional[str]:
-        if back_link_metadata:
-            if back_link_metadata.note_name.lower() == 'readme' and GITHUB_PAGES:
-                back_link_metadata.relative_path_without_ext = \
-                    back_link_metadata.relative_path_without_ext.replace("readme", "")
-            return f"- [[{back_link_metadata.note_name}]]({back_link_metadata.relative_path_without_ext})"
+    def _get_back_link_md_line(metadata: NoteMetadata) -> Optional[str]:
+        if metadata:
+
+            is_github_readme = metadata.note_name.lower() == 'readme' and GITHUB_PAGES
+            if is_github_readme:
+                metadata.relative_path_without_ext = metadata.relative_path_without_ext.replace("readme", "")
+
+            return f"- [[{metadata.note_name}]]({metadata.relative_path_without_ext})"
 
     def _get_back_link_lines(self, note_metadata: NoteMetadata) -> List[str]:
         back_links = note_metadata.back_links
@@ -91,17 +92,41 @@ class NoteRepo:
         reference_block_lines.append(FOOTER)
         return os.linesep.join(reference_block_lines)
 
+    def get_note_contents(self, note_name: str) -> str:
+        note_metadata: NoteMetadata = self.note_to_metadata_map.get(note_name)
+        with open(note_metadata.complete_path, "r") as readable_file:
+            return readable_file.read()
+
+    def put_note_contents(self, note_name: str, note_contents: str):
+        note_metadata: NoteMetadata = self.note_to_metadata_map.get(note_name)
+        with open(note_metadata.complete_path, "w") as writeable_file:
+            writeable_file.write(note_contents)
+
     def refresh_reference_block_for_note(self, note_name: str):
         note_metadata: NoteMetadata = self.note_to_metadata_map.get(note_name)
         if not note_metadata:
             raise Exception(f"Note named {note_name} not found!")
 
-        with open(note_metadata.complete_path, "r") as readable_file:
-            file_contents = readable_file.read()
-            cleared_file_contents = get_file_contents_without_reference_block(file_contents)
-            ref_text = self.generate_reference_block(note_name)
-            with open(note_metadata.complete_path, "w") as writeable_file:
-                writeable_file.write(cleared_file_contents.strip() + (os.linesep * 3) + ref_text)
+        file_contents = self.get_note_contents(note_name)
+        cleared_file_contents = get_file_contents_without_reference_block(file_contents)
+        ref_text = self.generate_reference_block(note_name)
+        self.put_note_contents(note_name, cleared_file_contents.strip() + (os.linesep * 3) + ref_text)
+
+    def rename_note(self, src_name, dst_name):
+        note_metadata: NoteMetadata = self.note_to_metadata_map.get(src_name)
+        if not note_metadata:
+            raise Exception(f"Note named {src_name} not found!")
+
+        note_complete_path = note_metadata.complete_path
+
+        for note, metadata in self.note_to_metadata_map.items():
+            if src_name in metadata.wiki_links:
+                note_contents = self.get_note_contents(note_name=note)
+                modified_note_contents = note_contents.replace(f"[[{src_name}]]", f"[[{dst_name}]]")
+                self.put_note_contents(metadata.note_name, modified_note_contents)
+
+        renamed_complete_path = note_metadata.complete_path.replace(src_name, dst_name)
+        os.rename(note_complete_path, renamed_complete_path)
 
     def process_notes(self):
         for note, metadata in self.note_to_metadata_map.items():
