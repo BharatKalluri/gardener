@@ -32,10 +32,6 @@ The aim of this tool is to **get out of the way and make managing a digital gard
      personally, The config is [very simple!](https://github.com/BharatKalluri/notes/blob/master/lefthook.yml)
 - Push the updated files and switch on github pages if you please. You will have a great looking website ready for you! ([example](https://notes.bharatkalluri.in))
 
-### Limitations
-- Although gardener handles nested files, it cannot handle file name conflicts.
-    So, if the same file name is in two different folders. There will be conflicts.
-
 ### What else can I do?
 
 - `gardener rename old_name new_name`: Will rename the note and corresponding wiki-links
@@ -44,5 +40,9 @@ The aim of this tool is to **get out of the way and make managing a digital gard
 
 - `gardener tend`: Looks for words in notes which could be wiki-links. This will enhance the quality of
     wiki-links and back links!
+    
+### Limitations
+- Although gardener handles nested files, it cannot handle file name conflicts.
+    So, if the same file name is in two different folders. There will be conflicts.
     
 Please do let me know if you have any other interesting ideas over at github issues!
