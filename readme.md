@@ -1,5 +1,5 @@
 <div>
-  <h1 align="center">Gardener</h1>
+  <h1 align="center">Gardener 🌱</h1>
   <h3 align="center">A simple command line tool to maintain your digital garden.</h3>
 </div>
 
