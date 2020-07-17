@@ -3,7 +3,7 @@ import re
 from dataclasses import dataclass
 from typing import List, Dict, Set
 
-from constants import HEADER, FOOTER
+from gardener.constants import HEADER, FOOTER
 
 
 @dataclass

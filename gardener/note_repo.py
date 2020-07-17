@@ -1,8 +1,8 @@
 import os
 from typing import Dict, Optional, List
 
-from constants import GITHUB_PAGES, HEADER, FOOTER, SUPPORTED_FILE_EXT, ALL_NOTES_PAGE_ENABLED
-from utils import find_wiki_links, get_file_contents_without_reference_block, get_all_notes_page_contents, \
+from gardener.constants import GITHUB_PAGES, HEADER, FOOTER, SUPPORTED_FILE_EXT, ALL_NOTES_PAGE_ENABLED
+from gardener.utils import find_wiki_links, get_file_contents_without_reference_block, get_all_notes_page_contents, \
     write_all_notes_file, NoteMetadata
 
 

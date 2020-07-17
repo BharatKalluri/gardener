@@ -1,8 +1,7 @@
+import click
 import os
 
-import click
-
-from note_repo import NoteRepo
+from gardener.note_repo import NoteRepo
 
 
 @click.group()
@@ -28,7 +27,7 @@ def rename(src, dst):
     click.echo(f"Rename from {src} -> {dst} is complete.")
 
 
-if __name__ == "__main__":
+def app():
     cli.add_command(link)
     cli.add_command(rename)
     cli()
