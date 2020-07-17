@@ -21,28 +21,34 @@ Gardener is a command line tool meant to organize your digital garden.
 
 The aim of this tool is to **get out of the way and make managing a digital garden editor/service independent.**
 
-## Workflow
+## How to Install?
 
-- Write notes in markdown, use wiki-links (`[[file-name]]`) for linking notes together.
-    vs code has an excellent extension called [Markdown notes](https://marketplace.visualstudio.com/items?itemName=kortina.vscode-markdown-notes) which provides autocomplete, back-links in editor etc..
-> Note: We will require readme.md which will act as the index page of your website
-- Run `gardener link` in your notes folder. For every note file, it will attach a couple of lines of markdown links with a header and footer.
-    These turn into actual links later on if you want to make your website public using github pages.
-    > Pro tip: Setup a pre-commit hook so that all your will have up to date backlinks/wikilinks. I use [lefthook](https://github.com/Arkweid/lefthook/)
-     personally, The config is [very simple!](https://github.com/BharatKalluri/notes/blob/master/lefthook.yml)
+You will need to install python and pip on your system.
+
+```shell script
+pip install --user https://github.com/BharatKalluri/gardener/releases/download/0.1/gardener-0.1.0.tar.gz
+```
+
+Currently I am not able to upload to [pypi](pypi.org/) due to [some reasons](https://github.com/BharatKalluri/gardener/issues/14). Will publish sometime soon
+
+## What can it do?
+
+- create a `readme.md`. This will serve as an entry point for your notes.
+- Write notes in markdown, use wiki-links (`[[file-name]]`) all you want.
+- Run `gardener link` in your notes folder. Now you will have markdown links linking your notes!
+- You can also rename notes using `gardener rename <name> <new name>`, gardener will update all your wiki links
 - Push the updated files and switch on github pages if you please. You will have a great looking website ready for you! ([example](https://notes.bharatkalluri.in))
 
-### What else can I do?
-
-- `gardener rename old_name new_name`: Will rename the note and corresponding wiki-links
+Pro tip: Setup a pre-commit hook so that all your will have up to date backlinks/wikilinks. I use [lefthook](https://github.com/Arkweid/lefthook/)
+     personally, The config is [very simple!](https://github.com/BharatKalluri/notes/blob/master/lefthook.yml)
 
 ### What is planned?
 
 - `gardener tend`: Looks for words in notes which could be wiki-links. This will enhance the quality of
     wiki-links and back links!
+- A graph view between all your wiki links.
     
 ### Limitations
-- Although gardener handles nested files, it cannot handle file name conflicts.
-    So, if the same file name is in two different folders. There will be conflicts.
+- Although gardener handles nested files, it cannot handle same file name conflicts.
     
 Please do let me know if you have any other interesting ideas over at github issues!
