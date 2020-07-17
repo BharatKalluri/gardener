@@ -22,4 +22,4 @@ requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.poetry.scripts]
-poetry = 'gardener:main'
+gardener = 'gardener:main.app'
