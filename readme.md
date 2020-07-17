@@ -29,7 +29,7 @@ You will need to install python and pip on your system.
 pip install --user https://github.com/BharatKalluri/gardener/releases/download/0.1/gardener-0.1.0.tar.gz
 ```
 
-Currently I am not able to upload to [pypi](pypi.org/) due to [some reasons](https://github.com/BharatKalluri/gardener/issues/14). Will publish sometime soon
+[Will publish to pypi soon](https://github.com/BharatKalluri/gardener/issues/14)
 
 ## What can it do?
 
