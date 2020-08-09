@@ -131,13 +131,15 @@ class NoteRepo:
 
     def tend_note(self, note_name: str):
         note_contents = get_file_contents_without_reference_block(self.get_note_contents(note_name))
-        all_notes_with_groups_regex = "|".join([f"({note_name}) " for note_name in self.note_to_metadata_map.keys()])
-        all_match_obj_of_notes = list(re.finditer(all_notes_with_groups_regex, note_contents))
+
+        all_notes_names_regex = "|".join([f" {note_name} " for note_name in self.note_to_metadata_map.keys()])
+        all_match_obj_of_notes = list(re.finditer(all_notes_names_regex, note_contents))
 
         all_unlinked_notes = list(set([note_contents[match.start():match.end()] for match in all_match_obj_of_notes]))
         for unlinked_note_name in all_unlinked_notes:
-            print(f"Creating link to {unlinked_note_name}in note: {note_name}")
-            note_contents = note_contents.replace(unlinked_note_name, f"[[{unlinked_note_name.strip()}]] ")
+            unlinked_note_name_stripped = unlinked_note_name.strip()
+            print(f"Creating link to {unlinked_note_name_stripped} in note: {note_name}")
+            note_contents = note_contents.replace(unlinked_note_name, f" [[{unlinked_note_name_stripped}]] ")
 
         self.put_note_contents(note_name, note_contents)
 
