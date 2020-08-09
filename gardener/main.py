@@ -1,5 +1,6 @@
-import click
 import os
+
+import click
 
 from gardener.note_repo import NoteRepo
 
@@ -18,6 +19,14 @@ def link():
 
 
 @click.command()
+def tend():
+    notes_dir_path = os.getcwd()
+    notes_repo = NoteRepo(notes_dir_path)
+    notes_repo.tend_garden()
+    click.echo("Your garden has been tended!")
+
+
+@click.command()
 @click.argument('src')
 @click.argument('dst')
 def rename(src, dst):
@@ -30,4 +39,5 @@ def rename(src, dst):
 def app():
     cli.add_command(link)
     cli.add_command(rename)
+    cli.add_command(tend)
     cli()
