@@ -25,7 +25,7 @@ The aim of this tool is to **get out of the way and make managing a digital gard
 
 You will need to install python and pip on your system.
 
-```shell script
+```
 pip install --user https://github.com/BharatKalluri/gardener/releases/download/0.1/gardener-0.1.0.tar.gz
 ```
 
