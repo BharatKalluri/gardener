@@ -49,6 +49,6 @@ Push the updated files and switch on github pages if you please. You will have a
 - A graph view between all your wiki links.
     
 ### Limitations
-- Although gardener handles nested files, it cannot handle same file name conflicts.
+- Although gardener handles files in nested folders, it cannot handle files having the same name.
     
 Please do let me know if you have any other interesting ideas over at github issues!
