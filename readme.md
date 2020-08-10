@@ -21,7 +21,7 @@ Gardener is a command line tool meant to organize your digital garden.
 
 The aim of this tool is to **get out of the way and make managing a digital garden editor/service independent.**
 
-## How to Install?
+## Installation
 
 You will need to install python and pip on your system.
 
@@ -33,19 +33,19 @@ pip install --user https://github.com/BharatKalluri/gardener/releases/download/0
 
 ## What can it do?
 
-- create a `readme.md`. This will serve as an entry point for your notes.
-- Write notes in markdown, use wiki-links (`[[file-name]]`) all you want.
-- Run `gardener link` in your notes folder. Now you will have markdown links linking your notes!
-- You can also rename notes using `gardener rename <name> <new name>`, gardener will update all your wiki links
-- Push the updated files and switch on github pages if you please. You will have a great looking website ready for you! ([example](https://notes.bharatkalluri.in))
+Create a `readme.md`. This will serve as an entry point for your notes. Write notes in markdown, use wiki-links (`[[file-name]]`) to link between notes.
 
-Pro tip: Setup a pre-commit hook so that all your will have up to date backlinks/wikilinks. I use [lefthook](https://github.com/Arkweid/lefthook/)
+- `gardener link` : Converts all wiki links to markdown links (so that github pages can pick these up as normal web links)
+- `gardener rename <name> <new name>`: Will rename a note and also the corresponding wiki links
+- `gardener tend`: Will scan all your notes and find out which notes are not linked and will automatically create wiki links for you (coming soon in release 0.2!)
+
+Push the updated files and switch on github pages if you please. You will have a great looking website ready for you! ([example](https://notes.bharatkalluri.in))
+
+> Pro tip: Setup a pre-commit hook so that all your will have up to date backlinks/wikilinks. I use [lefthook](https://github.com/Arkweid/lefthook/)
      personally, The config is [very simple!](https://github.com/BharatKalluri/notes/blob/master/lefthook.yml)
 
 ### What is planned?
 
-- `gardener tend`: Looks for words in notes which could be wiki-links. This will enhance the quality of
-    wiki-links and back links!
 - A graph view between all your wiki links.
     
 ### Limitations
